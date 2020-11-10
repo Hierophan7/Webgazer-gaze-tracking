@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Webgazer test</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="myTop-left"></div>
+      <div class="myTop-middle"></div>
+      <div class="myTop-right"></div>
+      <div class="myMiddle-left"></div>
+      <div class="myMiddle-middle"></div>
+      <div class="myMiddle-right"></div>
+      <div class="myBottom-left"></div>
+      <div class="myBottom-middle"></div>
+      <div class="myBottom-right"></div>
+    </div>
+    <style>
+      body {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        background-color: seashell;
+      }
+      .container {
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .container > div {
+        border: 8px solid white;
+      }
+    </style>
+    <script src="webgazer.js" type="text/javascript"></script>
+    <script>
+      const myTopLeft = document.querySelector(".myTop-left")
+      const myTopMiddle = document.querySelector(".myTop-middle") // new const
+      const myTopRight = document.querySelector(".myTop-right")
+
+      const myMiddleLeft = document.querySelector(".myMiddle-left")
+      const myMiddleCenter = document.querySelector(".myMiddle-middle")
+      const myMiddleRight = document.querySelector(".myMiddle-right")
+
+      const myBottomLeft = document.querySelector(".myBottom-left")
+      const myBottomCenter = document.querySelector(".myBottom-middle")
+      const myBottomRight = document.querySelector(".myBottom-right")
+
+      webgazer
+        .setGazeListener(function (data, elapsedTime) {
+          if (data == null) {
+            return
+          }
+          myTopLeft.style.backgroundColor = "seashell"
+          myTopMiddle.style.backgroundColor = "seashell"
+          myTopRight.style.backgroundColor = "seashell"
+          myMiddleLeft.style.backgroundColor = "seashell"
+          myMiddleCenter.style.backgroundColor = "seashell"
+          myMiddleRight.style.backgroundColor = "seashell"
+          myBottomLeft.style.backgroundColor = "seashell"
+          myBottomCenter.style.backgroundColor = "seashell"
+          myBottomRight.style.backgroundColor = "seashell"
+          // Top row
+          if (
+            data.x < window.innerWidth * 0.333 &&
+            data.y < window.innerHeight * 0.333
+          ) {
+            myTopLeft.style.backgroundColor = "skyblue"
+          }
+          if (
+            data.x > window.innerWidth * 0.333 &&
+            data.x < window.innerWidth * 0.666 &&
+            data.y < window.innerHeight * 0.333
+          ) {
+            myTopMiddle.style.backgroundColor = "tomato"
+          }
+
+          if (
+            data.x > window.innerWidth * 0.666 &&
+            data.y < window.innerHeight * 0.333
+          ) {
+            myTopRight.style.backgroundColor = "cadetblue"
+          }
+          // Middle row
+          if (
+            data.x < window.innerWidth * 0.333 &&
+            data.y > window.innerHeight * 0.333 &&
+            data.y < window.innerHeight * 0.666
+          ) {
+            myMiddleLeft.style.backgroundColor = "darkslateblue"
+          }
+          if (
+            data.x > window.innerWidth * 0.333 &&
+            data.x < window.innerWidth * 0.666 &&
+            data.y > window.innerHeight * 0.333 &&
+            data.y < window.innerHeight * 0.666
+          ) {
+            myMiddleCenter.style.backgroundColor = "dimgrey"
+          }
+          if (
+            data.x > window.innerWidth * 0.666 &&
+            data.y > window.innerHeight * 0.333 &&
+            data.y < window.innerHeight * 0.666
+          ) {
+            myMiddleRight.style.backgroundColor = "orange"
+          }
+          // Bottom row
+
+          if (
+            data.x < window.innerWidth * 0.333 &&
+            data.y > window.innerHeight * 0.666
+          ) {
+            myBottomLeft.style.backgroundColor = "olive"
+          }
+          if (
+            data.x > window.innerWidth * 0.333 &&
+            data.x < window.innerWidth * 0.666 &&
+            data.y > window.innerHeight * 0.666
+          ) {
+            myBottomCenter.style.backgroundColor = "royalblue"
+          }
+          if (
+            data.x > window.innerWidth * 0.666 &&
+            data.y > window.innerHeight * 0.666
+          ) {
+            myBottomRight.style.backgroundColor = "yellowgreen"
+          }
+        })
+        .begin()
+    </script>
+  </body>
+</html>
